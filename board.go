@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type Board [][]int
 
@@ -109,8 +112,17 @@ func (b *Board) canPlace(currentPlayer, row, col int) bool {
 	return false
 }
 
-func (b *Board) placeStone(currenctPlayer, row, col int) {
-	(*b)[row][col] = currenctPlayer
+func (b *Board) placeStone(currentPlayer, row, col int) {
+	(*b)[row][col] = currentPlayer
+}
+
+func (b *Board) placeAuto(currentPlayer int) {
+	vms := b.findValidMoves(currentPlayer)
+	num := rand.Intn(len(vms))
+	vm := vms[num]
+
+	b.placeStone(currentPlayer, vm.Row, vm.Col)
+	b.flipStones(currentPlayer, vm.Row, vm.Col)
 }
 
 func (b *Board) showHint(currentPlayer int) {

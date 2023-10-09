@@ -26,6 +26,12 @@ const (
 	PlayerNone
 )
 
+const (
+	GameStateTitle = iota
+	GameStatePlay
+	GameStateEnd
+)
+
 type Shift struct {
 	Row int
 	Col int
